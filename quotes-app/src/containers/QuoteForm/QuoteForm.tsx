@@ -1,4 +1,6 @@
-import {CategoriesProps} from "../../types.ts";
+import {CategoriesProps, QuotesInfo} from "../../types.ts";
+import React,  {useState} from "react";
+import axiosApi from "../../axiosApi.ts";
 
 
 const CATEGORIES: CategoriesProps[] = [
@@ -10,15 +12,36 @@ const CATEGORIES: CategoriesProps[] = [
 ]
 
 const QuoteForm = () => {
+    const [quoteInfo, setQuoteInfo] = useState<QuotesInfo>({
+        category: '',
+        author: '',
+        quote: '',
+    })
+
+    const saveQuoteInfo = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+        const {name, value} = event.target;
+        setQuoteInfo((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }))
+    }
+
+    const onFormSubmit = async (event: React.FormEvent) => {
+        event.preventDefault();
+        await axiosApi.post('/quotes.json', quoteInfo)
+
+    }
     return (
         <>
          <h1>Quote Form</h1>
-            <form>
+            <form onSubmit={onFormSubmit}>
                 <div className='form-group mb-3'>
                     <select
                         name='category'
                         id='category'
                         required
+                        value={quoteInfo.category}
+                        onChange={saveQuoteInfo}
                         className='form-select'
                     >
                         <option>
@@ -36,6 +59,8 @@ const QuoteForm = () => {
                         name='author'
                         id='author'
                         required
+                        value={quoteInfo.author}
+                        onChange={saveQuoteInfo}
                         className='form-control'
                     />
                 </div>
@@ -45,6 +70,8 @@ const QuoteForm = () => {
                         name='quote'
                         id='quote'
                         required
+                        value={quoteInfo.quote}
+                        onChange={saveQuoteInfo}
                         className='form-control'
                     />
                 </div>
