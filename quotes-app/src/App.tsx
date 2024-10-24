@@ -7,11 +7,12 @@ import EditQuote from "./containers/EditQuote/EditQuote.tsx";
 const App = () => {
 return(
     <>
+
         <header>
             <NavBar />
         </header>
 
-        <div className='main-container'>
+        <div className='main-container '>
             <Routes>
                 <Route path="/" element={<h1>Quote</h1>} />
                 <Route path="/quotes" element={<Quotes />} />
@@ -21,6 +22,7 @@ return(
                 <Route path="/*" element={<h1>Not Found</h1>} />
             </Routes>
         </div>
+
     </>
 )
 };

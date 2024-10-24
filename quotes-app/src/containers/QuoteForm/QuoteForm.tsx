@@ -1,15 +1,8 @@
-import {CategoriesProps, QuotesInfo} from "../../types.ts";
+import {QuotesInfo} from "../../types.ts";
 import React,  {useState} from "react";
 import axiosApi from "../../axiosApi.ts";
-
-
-const CATEGORIES: CategoriesProps[] = [
-    {title: 'Star Wars', id: 'star-wars'},
-    {title: 'Famous people', id: 'famous-people'},
-    {title: 'Saying', id: 'saying'},
-    {title: 'Humour', id: 'humour'},
-    {title: 'Motivational', id: 'motivational'},
-]
+import {CATEGORIES} from "../../categories.ts";
+import './QuoteForm.css'
 
 const QuoteForm = () => {
     const [quoteInfo, setQuoteInfo] = useState<QuotesInfo>({
@@ -34,6 +27,7 @@ const QuoteForm = () => {
     return (
         <>
          <h1>Quote Form</h1>
+            <div className='formContainer'>
             <form onSubmit={onFormSubmit}>
                 <div className='form-group mb-3'>
                     <select
@@ -77,6 +71,7 @@ const QuoteForm = () => {
                 </div>
                 <button type='submit' className='btn btn-dark mt-4'>Create</button>
             </form>
+            </div>
         </>
     );
 };
